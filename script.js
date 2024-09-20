@@ -36,32 +36,35 @@ function displayRandomColorGenerate(randomColorHex) {
     }
 }
 
-const parentSquareDivCSS = 'display: flex; flex-direction: row; justify-content: center; padding: 0px;'
-const squareDivCSS = 'border: solid; border-color: black; height: 100px; width: 100px; transition: background-color 0.15s ease; ';
+const PARENT_GRID_STYLE = 'display: flex; flex-direction: row; justify-content: center; padding: 0px;';
+const SQUARE_STYLE = 'border: solid; border-color: black; height: 100px; width: 100px; transition: background-color 0.15s ease;';
 
-function gridGeneration(rowNumber, columnNumber) {
-    for (let i = 0; i < rowNumber; i++) {
-        const mainSquareDiv = createElement('div', 'mainSquareDiv', undefined, parentSquareDivCSS);
+function createGrid(rowCount, columnCount) {
+    for (let i = 0; i < rowCount; i++) {
+        const rowDiv = createElement('div', 'mainSquareDiv', undefined, PARENT_GRID_STYLE);
 
-        for (let j = 0; j < columnNumber; j++ ) {
-            const squareDiv = createElement('div', 'squareDiv', undefined, squareDivCSS);
+        for (let j = 0; j < columnCount; j++) {
+            const squareDiv = createElement('div', 'squareDiv', undefined, SQUARE_STYLE);
 
-            squareDiv.addEventListener('mouseover', function(event) {
-                const randomColor = "#"+((1<<24)*Math.random()|0).toString(16);
-                squareDiv.style.setProperty('background-color', randomColor);
-                displayRandomColorGenerate(randomColor);
-            });
+            squareDiv.addEventListener('mouseover', handleMouseOver);
+            squareDiv.addEventListener('mouseout', handleMouseOut);
 
-            squareDiv.addEventListener('mouseout', function(event) {
-                setTimeout(() => {
-                    squareDiv.style.setProperty('background-color', '');
-                }, 200);
-            });
-
-            mainSquareDiv.append(squareDiv)
+            rowDiv.append(squareDiv);
         }
-        parentSquareDiv.append(mainSquareDiv)
+        parentSquareDiv.append(rowDiv);
     }
+}
+
+function handleMouseOver(event) {
+    const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    event.target.style.backgroundColor = randomColor;
+    displayRandomColorGenerate(randomColor);
+}
+
+function handleMouseOut(event) {
+    setTimeout(() => {
+        event.target.style.backgroundColor = '';
+    }, 200);
 }
 
 gridGeneration(16, 16);
