@@ -2,6 +2,10 @@
 
 This project generates a grid of squares that change color when hovered over. Users can specify the number of rows and columns for the grid.
 
+## Live Page
+
+<https://hungbenjamin402.github.io/odin-etch_a_sketch/>
+
 ## Project Structure
 
 ### index.html
@@ -115,7 +119,3 @@ CSS file that styles the webpage.
 1. Open `index.html` in a web browser.
 2. Click the "Update Grid" button to specify the number of rows and columns for the grid.
 3. Hover over the squares to see them change color.
-
-## License
-
-This project is licensed under the MIT License.
